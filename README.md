@@ -220,6 +220,3 @@ This project is for educational and demonstration purposes. Feel free to modify 
 
 Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
 
----
-
-**Note**: This is a simulation system for educational purposes. For production V2X systems, ensure compliance with relevant automotive standards and regulations.
