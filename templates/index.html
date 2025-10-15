@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car2X Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-car"></i> Car2X Dashboard</h1>
+                <div class="connection-status">
+                    <span id="connection-status" class="status-indicator offline">Offline</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <!-- Vehicle Status -->
+                <section class="widget">
+                    <h3><i class="fas fa-car"></i> Vehicles</h3>
+                    <div id="vehicles-list" class="vehicles-list">
+                        <!-- Vehicle cards will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Emergency Alerts -->
+                <section class="widget">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Alerts</h3>
+                    <div id="alerts-list" class="alerts-list">
+                        <!-- Emergency alerts will be populated here -->
+                    </div>
+                </section>
+            </aside>
+
+            <!-- Center Content -->
+            <div class="center-content">
+                <!-- Map -->
+                <section class="widget map-widget">
+                    <h3><i class="fas fa-map"></i> V2X Map</h3>
+                    <div id="map" class="map-container"></div>
+                </section>
+
+                <!-- Traffic Information -->
+                <section class="widget">
+                    <h3><i class="fas fa-traffic-light"></i> Traffic Infrastructure</h3>
+                    <div id="infrastructure-list" class="infrastructure-list">
+                        <!-- Infrastructure status will be populated here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <!-- Job Management -->
+                <section class="widget">
+                    <h3><i class="fas fa-tasks"></i> Job Management</h3>
+                    <div class="job-controls">
+                        <button id="create-job-btn" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Job
+                        </button>
+                    </div>
+                    <div id="jobs-list" class="jobs-list">
+                        <!-- Jobs will be populated here -->
+                    </div>
+                </section>
+
+                <!-- V2X Statistics -->
+                <section class="widget">
+                    <h3><i class="fas fa-chart-bar"></i> Statistics</h3>
+                    <div id="statistics" class="statistics">
+                        <div class="stat-item">
+                            <span class="stat-label">Active Vehicles:</span>
+                            <span id="vehicle-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Infrastructure:</span>
+                            <span id="infra-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Active Jobs:</span>
+                            <span id="job-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Emergencies:</span>
+                            <span id="emergency-count" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Job Creation Modal -->
+    <div id="job-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Job</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="job-form">
+                    <div class="form-group">
+                        <label for="job-type">Job Type:</label>
+                        <select id="job-type" name="type" required>
+                            <option value="diagnostic">Diagnostic</option>
+                            <option value="navigation">Navigation</option>
+                            <option value="emergency">Emergency Response</option>
+                            <option value="data_collection">Data Collection</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="target-vehicles">Target Vehicles:</label>
+                        <div id="vehicle-checkboxes" class="vehicle-checkboxes">
+                            <!-- Vehicle checkboxes will be populated here -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="job-parameters">Parameters (JSON):</label>
+                        <textarea id="job-parameters" name="parameters" rows="3" 
+                                placeholder='{"destination": "Munich Airport", "priority": "high"}'></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Create Job</button>
+                        <button type="button" class="btn btn-secondary" id="cancel-job">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
